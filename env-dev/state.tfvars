@@ -1,3 +1,3 @@
 bucket = "expense-dkdevops"
-key    = "dev/expense/"
+key    = "dev/expense"
 region = "us-east-1"
