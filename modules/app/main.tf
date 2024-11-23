@@ -9,24 +9,27 @@ resource "aws_instance" "instance" {
 }
 
 resource "null_resource" "ansible" {
-  connection {
-    type     = "ssh"
-    user     = var.ssh_user
-    password = var.ssh_pass
-    host     = aws_instance.instance.public_ip
-}
 
   provisioner "remote-exec" {
+
+    connection {
+      type     = "ssh"
+      user     = var.ssh_user
+      password = var.ssh_pass
+      host     = aws_instance.instance.public_ip
+    }
+
+
     inline = [
       "sudo pip3.11 install ansible",
-      "ansbile-playbook -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible ${component}.yml"
-      ]
+      "ansbile-playbook -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible ${var.component}.yml"
+    ]
     }
 }
 
 resource "aws_route53_record" "record" {
   zone_id = var.zone_id
-  name    = "${component}-${env}"
+  name    = "${var.component}-${var.env}"
   type    = "A"
   ttl     = 30
   records = [aws_instance.instance.private_ip]
