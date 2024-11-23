@@ -22,14 +22,14 @@ resource "null_resource" "ansible" {
 
     inline = [
       "sudo pip3.11 install ansible",
-      "ansible-playbook -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible ${var.component}.yml"
+      "ansible-pull -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible ${var.component}.yml"
     ]
     }
 }
 
 resource "aws_route53_record" "record" {
   zone_id = var.zone_id
-  name    = "${var.component}-${var.env}"
+  name    = "${var.component}-${var.env}.tf"
   type    = "A"
   ttl     = 30
   records = [aws_instance.instance.private_ip]
