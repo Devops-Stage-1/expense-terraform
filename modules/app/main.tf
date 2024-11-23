@@ -26,7 +26,7 @@ resource "null_resource" "ansible" {
 
 resource "aws_route53_record" "record" {
   zone_id = var.zone_id
-  name    = "${component}-${env}-tf"
+  name    = "${component}-${env}"
   type    = "A"
   ttl     = 30
   records = [aws_instance.instance.private_ip]
