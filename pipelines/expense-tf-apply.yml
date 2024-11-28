@@ -1,0 +1,31 @@
+format_version: 10
+pipelines:
+  Frontend:
+    group: expense
+    materials:
+      git-4210a58:
+        git: https://github.com/Devops-Stage-1/expense-ansible.git
+        shallow_clone: false
+        branch: main
+    stages:
+    - dev:
+        fetch_materials: true
+        approval:
+          type: manual
+        jobs:
+          Test:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - -i
+                - frontend-dev.dkdevops.online,
+                - -e
+                - ansible_user=ec2-user
+                - -e
+                - ansible_password=DevOps321
+                - expense.yml
+                - -e
+                - role_name=frontend
+                command: ansible-playbook
+                run_if: passed
