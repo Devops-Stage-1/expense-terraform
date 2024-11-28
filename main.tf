@@ -12,7 +12,7 @@ module "backend" {
   source = "./modules/app"
   env = var.env
   instance_type = var.instance_type
-  component = "frontend"
+  component = "backend"
   ssh_user = var.ssh_user
   ssh_pass = var.ssh_pass
   zone_id = var.zone_id
@@ -22,7 +22,7 @@ module "mysql" {
   source = "./modules/app"
   env = var.env
   instance_type = var.instance_type
-  component = "frontend"
+  component = "mysql"
   ssh_user = var.ssh_user
   ssh_pass = var.ssh_pass
   zone_id = var.zone_id
