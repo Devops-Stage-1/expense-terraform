@@ -26,6 +26,7 @@ pipelines:
                     arguments:
                       - apply
                       - -var-file=env-dev/main.tfvars
+                      - -auto-approve
                     command: terraform
                     run_if: passed
 
