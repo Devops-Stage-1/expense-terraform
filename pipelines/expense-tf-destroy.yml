@@ -1,0 +1,33 @@
+format_version: 10
+pipelines:
+  expense_tf_apply:
+    group: expense
+    materials:
+      git-4210a58:
+        git: https://github.com/Devops-Stage-1/expense-terraform.git
+        shallow_clone: false
+        branch: main
+    stages:
+      - Terraform:
+          fetch_materials: true
+          approval:
+            type: manual
+          jobs:
+            Terraform:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - init
+                      - -backend-config=env-dev/state.tfvars
+                    command: terraform
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - destroy
+                      - -var-file=env-dev/main.tfvars
+                      - -auto-approve
+                    command: terraform
+                    run_if: passed
+
+
