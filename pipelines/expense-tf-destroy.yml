@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  expense_tf_apply:
+  expense_tf_destroy:
     group: expense
     materials:
       git-4210a58:
