@@ -1,5 +1,4 @@
 module "frontend" {
-  depends_on = [module.backend]
   source = "./modules/app"
   env = var.env
   instance_type = var.instance_type
