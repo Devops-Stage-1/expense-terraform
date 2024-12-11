@@ -1,5 +1,5 @@
 provider "vault" {
-  address         = "https://vault-internal.dkdevops.online:8200"
+  address         = "https://vault-internal.dkdevops.online:8200/ui/vault/secrets"
   token           = var.vault_token
   skip_tls_verify = true
 }
