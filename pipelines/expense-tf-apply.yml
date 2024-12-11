@@ -8,7 +8,7 @@ pipelines:
         shallow_clone: false
         branch: main
     secure_variables:
-      TF_VAR_vault_token: AES:lkylhsuIQR2lugI2qkBUAQ==:whu9V0XLTc7w2MpuA+ls9oYZQrW61Gqr/IWWyF2uYzg=
+      TF_VAR_vault_token: TaqeGcp*4D-yWpL3WQ+1
     stages:
       - Terraform:
           fetch_materials: true
