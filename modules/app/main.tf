@@ -26,7 +26,7 @@ resource "null_resource" "ansible" {
       "sudo pip3.11 install ansible",
       "ansible-pull -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible get-secrets.yml -e vault_token=${var.vault_token}",
       "ansible-pull -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible expense.yml -e @~/secrets.json -e role_name=${var.component} ",
-      "rm -f secrets.json"
+      "rm -f ~/secrets.json"
     ]
     }
 }
