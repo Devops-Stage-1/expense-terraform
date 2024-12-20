@@ -1,7 +1,21 @@
+resource "aws_security_group" "allow_tls" {
+  vpc_id      = aws_vpc.main.id
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "sg"
+  }
+}
+
 resource "aws_instance" "instance" {
   ami                     = data.aws_ami.ami.image_id
   instance_type           = var.instance_type
-  vpc_security_group_ids  = [data.aws_security_group.selected.id]
 
   tags = {
     Name = var.component
