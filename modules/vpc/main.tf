@@ -56,6 +56,7 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_eip" "ngw" {
+  count = length(var.public_subnets)
   domain   = "vpc"
 }
 
