@@ -27,6 +27,7 @@
 #   component = "mysql"
 #   zone_id = var.zone_id
 #   vault_token = var.vault_token
+#   vpc_id  = module.vpc
 # }
 
 module "vpc" {

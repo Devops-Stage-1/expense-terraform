@@ -1,4 +1,4 @@
-resource "aws_security_group" "allow_tls" {
+resource "aws_security_group" "main" {
   vpc_id      = aws_vpc.main.id
 
   egress {
@@ -16,7 +16,8 @@ resource "aws_security_group" "allow_tls" {
 resource "aws_instance" "instance" {
   ami                     = data.aws_ami.ami.image_id
   instance_type           = var.instance_type
-
+  vpc_security_group_ids  = [aws_security_group.main.id]
+  subnet_id =
   tags = {
     Name = var.component
     monitor = "yes"

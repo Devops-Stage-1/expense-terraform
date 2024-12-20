@@ -28,7 +28,7 @@ resource "aws_subnet" "public" {
   count = length(var.public_subnets)
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnets
+  cidr_block = var.public_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
 
   tags    = {
@@ -80,7 +80,7 @@ resource "aws_subnet" "frontend" {
   count = length(var.frontend_subnets)
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.frontend_subnets
+  cidr_block = var.frontend_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
 
   tags    = {
@@ -118,7 +118,7 @@ resource "aws_subnet" "backend" {
   count = length(var.backend_subnets)
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.backend_subnets
+  cidr_block = var.backend_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
 
   tags    = {
@@ -156,7 +156,7 @@ resource "aws_subnet" "db" {
   count = length(var.db_subnets)
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.db_subnets
+  cidr_block = var.db_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
 
   tags    = {
