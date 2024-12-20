@@ -1,7 +1,4 @@
 variable "env" {}
-variable "instance_type" {}
-variable "zone_id" {}
-variable "vault_token" {}
 variable "default_vpc_id" {}
 variable "default_vpc_cidr_block" {}
 variable "vpc_cidr_block" {}
