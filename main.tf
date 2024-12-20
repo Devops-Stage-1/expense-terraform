@@ -31,8 +31,8 @@
 
 module "vpc" {
   source  = "./modules/vpc"
-  vpc_id = var.vpc_cidr_block
-  subnet_id = var.subnet_cidr_block
+  vpc_cidr_block = var.vpc_cidr_block
+  subnet_cidr_block = var.subnet_cidr_block
   env     = var.env
   default_vpc_id= var.default_vpc_id
   default_vpc_cidr_block = var.default_vpc_cidr_block
