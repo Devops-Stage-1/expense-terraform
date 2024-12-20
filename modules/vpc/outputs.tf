@@ -1,19 +1,19 @@
-output "vpc" {
+output "vpc_id" {
   value = aws_vpc.main.id
 }
 
-output "frontend" {
+output "frontend_subnets" {
   value = aws_subnet.frontend.*.id
 }
 
-output "backend" {
+output "backend_subnets" {
   value = aws_subnet.backend.*.id
 }
 
-output "db" {
+output "db_subnets" {
   value = aws_subnet.db.*.id
 }
 
-output "public" {
+output "public_subnets" {
   value = aws_subnet.public.*.id
 }
