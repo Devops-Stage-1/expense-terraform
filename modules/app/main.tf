@@ -32,26 +32,26 @@ resource "aws_instance" "instance" {
   }
 }
 
-# resource "null_resource" "ansible" {
-#
-#   provisioner "remote-exec" {
-#
-#     connection {
-#       type     = "ssh"
-#       user     = jsondecode(data.vault_generic_secret.ssh.data_json).ansible_user
-#       password = jsondecode(data.vault_generic_secret.ssh.data_json).ansible_password
-#       host     = aws_instance.instance.private_ip
-#     }
-#
-#
-#     inline = [
-#       "sudo pip3.11 install ansible hvac",
-#       "ansible-pull -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible get-secrets.yml -e vault_token=${var.vault_token}",
-#       "ansible-pull -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible expense.yml -e @~/secrets.json -e @~/newrelic.json -e role_name=${var.component} ",
-#       "rm -f ~/secrets.json ~/newrelic.json"
-#     ]
-#     }
-# }
+resource "null_resource" "ansible" {
+
+  provisioner "remote-exec" {
+
+    connection {
+      type     = "ssh"
+      user     = jsondecode(data.vault_generic_secret.ssh.data_json).ansible_user
+      password = jsondecode(data.vault_generic_secret.ssh.data_json).ansible_password
+      host     = aws_instance.instance.private_ip
+    }
+
+
+    inline = [
+      "sudo pip3.11 install ansible hvac",
+      "ansible-pull -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible get-secrets.yml -e vault_token=${var.vault_token}",
+      "ansible-pull -i localhost, -U https://github.com/Devops-Stage-1/expense-ansible expense.yml -e @~/secrets.json -e @~/newrelic.json -e role_name=${var.component} ",
+      "rm -f ~/secrets.json ~/newrelic.json"
+    ]
+    }
+}
 
 resource "aws_route53_record" "record" {
   zone_id = var.zone_id
