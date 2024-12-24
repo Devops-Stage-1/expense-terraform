@@ -121,7 +121,7 @@ resource "aws_lb" "main" {
   name                = "${var.component}-${var.env}-alb"
   internal            = var.lb_type =="public" ? false : true
   load_balancer_type  = "application"
-  security_groups     = [aws_security_group.load_balancer.id]
+  security_groups     = [aws_security_group.load_balancer[0].id]
   subnets             = var.lb_subnets
 
   tags = {
