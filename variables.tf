@@ -11,6 +11,3 @@ variable "availability_zones" {}
 variable "backend_subnets" {}
 variable "db_subnets" {}
 variable "public_subnets" {}
-variable "lb_needed" {}
-variable "lb_type" {}
-variable "app_port" {}
