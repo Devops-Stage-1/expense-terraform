@@ -22,5 +22,5 @@ variable "lb_app_port_sg_cidr" {
   default = null
 }
 # variable "lb_app_port_sg_cidr" {
-#   default = null
+#   default = []
 # }
