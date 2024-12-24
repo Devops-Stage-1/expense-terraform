@@ -68,7 +68,7 @@ resource "aws_route53_record" "lb-record" {
   name    = "${var.component}-${var.env}"
   type    = "CNAME"
   ttl     = 30
-  records = [aws_lb.main.dns_name]
+  records = [aws_lb.main[0].dns_name]
 }
 
 resource "aws_lb" "main" {
@@ -77,7 +77,7 @@ resource "aws_lb" "main" {
   internal            = var.lb_type =="public" ? false : true
   load_balancer_type  = "application"
   security_groups     = [aws_security_group.main.id]
-  subnets             = [var.lb_subnets]
+  subnets             = var.lb_subnets
 
   tags = {
     Environment = "${var.component}-${var.env}-alb"
