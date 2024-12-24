@@ -1,18 +1,22 @@
 module "frontend" {
-  depends_on    = [module.backend]
+  depends_on              = [module.backend]
 
-  source        = "./modules/app"
-  env           = var.env
-  instance_type = var.instance_type
-  component     = "frontend"
-  zone_id       = var.zone_id
-  vault_token   = var.vault_token
-  vpc_id        = module.vpc.vpc_id
-  subnets       = module.vpc.frontend_subnets
-  lb_needed     = true
-  lb_type       = "public"
-  lb_subnets    = module.vpc.public_subnets
-  app_port      = 80
+  source                  = "./modules/app"
+  env                     = var.env
+  instance_type           = var.instance_type
+  component               = "frontend"
+  zone_id                 = var.zone_id
+  vault_token             = var.vault_token
+  vpc_id                  = module.vpc.vpc_id
+  subnets                 = module.vpc.frontend_subnets
+  lb_needed               = true
+  lb_type                 = "public"
+  lb_subnets              = module.vpc.public_subnets
+  app_port                = 80
+  bastion_nodes           = var.bastion_nodes
+  server_app_port_sg_cidr = var.public_subnets
+  prometheus_nodes        = var.prometheus_nodes
+  lb_app_port_sg_cidr     = 0.0.0.0/0
 }
 
 module "backend" {
@@ -30,6 +34,11 @@ module "backend" {
   lb_type       = "private"
   lb_subnets    = module.vpc.backend_subnets
   app_port      = 8080
+  bastion_nodes = var.bastion_nodes
+  # server_app_port_sg_cidr = concat(var.frontend_subnets, var.public_subnets)
+  server_app_port_sg_cidr = var.public_subnets
+  prometheus_nodes        = var.prometheus_nodes
+  lb_app_port_sg_cidr     = var.frontend_subnets
 }
 
 module "mysql" {
@@ -43,6 +52,9 @@ module "mysql" {
   vpc_id        = module.vpc.vpc_id
   subnets       = module.vpc.db_subnets
   app_port      = 3306
+  bastion_nodes = var.bastion_nodes
+  server_app_port_sg_cidr = var.backend_subnets
+  prometheus_nodes  = var.prometheus_nodes
 }
 
 module "vpc" {

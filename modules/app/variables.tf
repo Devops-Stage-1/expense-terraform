@@ -15,3 +15,12 @@ variable "lb_subnets" {
   default = null
 }
 variable "app_port" {}
+variable "bastion_nodes" {}
+variable "server_app_port_sg_cidr" {}
+variable "prometheus_nodes" {}
+variable "lb_app_port_sg_cidr" {
+  default = null
+}
+# variable "lb_app_port_sg_cidr" {
+#   default = null
+# }
