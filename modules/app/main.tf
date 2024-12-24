@@ -94,7 +94,7 @@ resource "aws_lb_target_group" "main" {
 
 resource "aws_lb_target_group_attachment" "main" {
   count             = var.lb_needed ? 1 : 0
-  target_group_arn  = aws_lb_target_group.main.arn
+  target_group_arn  = aws_lb_target_group.main[0].arn
   target_id         = aws_instance.instance.id
   port              = var.app_port
 }
@@ -107,6 +107,6 @@ resource "aws_lb_listener" "front_end" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.main.arn
+    target_group_arn = aws_lb_target_group.main[0].arn
   }
 }
