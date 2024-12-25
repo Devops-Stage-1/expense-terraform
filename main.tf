@@ -17,6 +17,8 @@ module "frontend" {
   server_app_port_sg_cidr = var.public_subnets
   prometheus_nodes        = var.prometheus_nodes
   lb_app_port_sg_cidr     = ["0.0.0.0/0"]
+  certificate_arn         = "arn:aws:acm:us-east-1:235494793390:certificate/52ca4c0e-164c-4bbc-9276-82149fdf2e72"
+  lb_port                 = {http: 80, https: 443}
 }
 
 module "backend" {
@@ -39,22 +41,23 @@ module "backend" {
   server_app_port_sg_cidr = var.public_subnets
   prometheus_nodes        = var.prometheus_nodes
   lb_app_port_sg_cidr     = var.frontend_subnets
+  lb_port                 = {http: 80}
 }
 
 module "mysql" {
-  source        = "./modules/app"
+  source                  = "./modules/app"
 
-  env           = var.env
-  instance_type = var.instance_type
-  component     = "mysql"
-  zone_id       = var.zone_id
-  vault_token   = var.vault_token
-  vpc_id        = module.vpc.vpc_id
-  subnets       = module.vpc.db_subnets
-  app_port      = 3306
-  bastion_nodes = var.bastion_nodes
+  env                     = var.env
+  instance_type           = var.instance_type
+  component               = "mysql"
+  zone_id                 = var.zone_id
+  vault_token             = var.vault_token
+  vpc_id                  = module.vpc.vpc_id
+  subnets                 = module.vpc.db_subnets
+  app_port                = 3306
+  bastion_nodes           = var.bastion_nodes
   server_app_port_sg_cidr = var.backend_subnets
-  prometheus_nodes  = var.prometheus_nodes
+  prometheus_nodes        = var.prometheus_nodes
 }
 
 module "vpc" {

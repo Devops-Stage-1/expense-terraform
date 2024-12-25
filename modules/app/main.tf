@@ -96,11 +96,14 @@ resource "aws_security_group" "load_balancer" {
   description = "${var.component}-${var.env}-alb-sg"
   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = var.lb_app_port_sg_cidr
+  dynamic "ingress" {
+    for_each = var.lb_port
+    content {
+      from_port        = ingress.value
+      to_port          = ingress.value
+      protocol         = "TCP"
+      cidr_blocks      = var.lb_app_port_sg_cidr
+    }
   }
 
   egress {
@@ -153,8 +156,39 @@ resource "aws_lb_target_group_attachment" "main" {
   port              = var.app_port
 }
 
-resource "aws_lb_listener" "front_end" {
-  count             = var.lb_needed ? 1 : 0
+resource "aws_lb_listener" "frontend-http" {
+  count             = var.lb_needed && var.lb_type=="public"? 1 : 0
+  load_balancer_arn = aws_lb.main[0].arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "frontend-https" {
+  count             = var.lb_needed && var.lb_type == "public" ? 1 : 0
+  load_balancer_arn = aws_lb.main[0].arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = var.certificate_arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.main[0].arn
+  }
+}
+
+resource "aws_lb_listener" "load_balancer" {
+  count             = var.lb_needed && var.lb_type !="public" ? 1 : 0
   load_balancer_arn = aws_lb.main[0].arn
   port              = var.app_port
   protocol          = "HTTP"
