@@ -1,5 +1,5 @@
 resource "aws_security_group" "main" {
-  vpc_id      = var.vpc_id
+  vpc_id             = var.vpc_id
 
   ingress {
     from_port        = 22
@@ -38,11 +38,11 @@ resource "aws_instance" "instance" {
   ami                     = data.aws_ami.ami.image_id
   instance_type           = var.instance_type
   vpc_security_group_ids  = [aws_security_group.main.id]
-  subnet_id = var.subnets[0]
+  subnet_id               = var.subnets[0]
   tags = {
-    Name = var.component
+    Name    = var.component
     monitor = "yes"
-    env = var.env
+    env     = var.env
   }
   lifecycle {
     ignore_changes = [
@@ -132,11 +132,11 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "main" {
-  count    = var.lb_needed ? 1 : 0
-  name     = "${var.component}-${var.env}-alb-tg"
-  port     = var.app_port
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  count                = var.lb_needed ? 1 : 0
+  name                 = "${var.component}-${var.env}-alb-tg"
+  port                 = var.app_port
+  protocol             = "HTTP"
+  vpc_id               = var.vpc_id
   deregistration_delay = 15
 
   health_check {
