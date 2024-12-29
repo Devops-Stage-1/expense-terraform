@@ -52,7 +52,9 @@ resource "aws_instance" "instance" {
 }
 
 resource "null_resource" "ansible" {
-
+  triggers = {
+    instance = aws_instance.instance.id
+  }
   provisioner "remote-exec" {
 
     connection {
