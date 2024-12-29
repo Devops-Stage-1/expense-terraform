@@ -40,7 +40,7 @@ module "backend" {
   server_app_port_sg_cidr = concat(var.frontend_subnets, var.backend_subnets)
   prometheus_nodes        = var.prometheus_nodes
   lb_app_port_sg_cidr     = var.frontend_subnets
-  lb_port                 = {http: 80}
+  lb_port                 = {http: 8080}
 }
 
 module "mysql" {
