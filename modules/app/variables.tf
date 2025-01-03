@@ -31,3 +31,4 @@ variable "certificate_arn" {
 variable "lb_port" {
   default = null
 }
+variable "kms_key_id" {}
