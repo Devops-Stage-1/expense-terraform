@@ -54,6 +54,7 @@ resource "aws_instance" "instance" {
 resource "null_resource" "ansible" {
   triggers = {
     instance = aws_instance.instance.id
+    always_run = timestamp()
   }
   provisioner "remote-exec" {
 
