@@ -3,3 +3,11 @@ data "aws_ami" "ami" {
   name_regex  = "RHEL-9-DevOps-Practice"
   owners      = ["973714476881"]
 }
+
+data "vault_generic_secret" "ssh" {
+  path  = "common/common"
+}
+
+data "vault_generic_secret" "ssh" {
+  path  = "rds/${var.env}"
+}
