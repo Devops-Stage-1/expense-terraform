@@ -13,3 +13,4 @@ variable "db_subnets" {}
 variable "public_subnets" {}
 variable "bastion_nodes" {}
 variable "prometheus_nodes" {}
+variable "kms_key_id" {}
