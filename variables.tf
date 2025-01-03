@@ -14,3 +14,6 @@ variable "public_subnets" {}
 variable "bastion_nodes" {}
 variable "prometheus_nodes" {}
 variable "kms_key_id" {}
+variable "max_size" {}
+variable "min_size" {}
+variable "desired_capacity" {}

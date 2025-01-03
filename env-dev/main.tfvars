@@ -18,3 +18,8 @@ availability_zones  = ["us-east-1a", "us-east-1b"]
 bastion_nodes       = ["172.31.43.224/32"]
 prometheus_nodes    = ["172.31.90.44/32"]
 kms_key_id          = "arn:aws:kms:us-east-1:235494793390:key/d91bbef7-3841-40c1-b9a2-f7f5e92ef92a"
+
+#ASG
+min_size = 1
+max_size = 5
+desired_capacity = 1
