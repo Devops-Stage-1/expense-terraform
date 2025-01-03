@@ -22,7 +22,7 @@
 # }
 #
 module "backend" {
-  depends_on    = [module.mysql]
+  depends_on    = [module.rds]
 
   source        = "./modules/app"
   env           = var.env
