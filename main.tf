@@ -70,7 +70,7 @@ module "rds" {
   env                     = var.env
   instance_class          = "db.t3.micro"
   kms_key_id              = var.kms_key_id
-  family                  = "mysql8.0"
+  family                  = "mysql8.4"
   storage_type            = "gp3"
   subnet_ids              = module.vpc.db_subnets
   server_app_port_sg_cidr = var.backend_subnets
