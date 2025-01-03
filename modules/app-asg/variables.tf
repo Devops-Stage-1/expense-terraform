@@ -10,3 +10,4 @@ variable "app_port" {}
 variable "server_app_port_sg_cidr" {}
 variable "prometheus_nodes" {}
 variable "bastion_nodes" {}
+variable "vault_token" {}
