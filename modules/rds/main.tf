@@ -11,7 +11,7 @@ resource "aws_db_instance" "main" {
   multi_az                = false
   allocated_storage       = var.allocated_storage
   storage_type            = var.storage_type
-  vpc_security_group_ids  = [aws]
+  vpc_security_group_ids  = [aws_security_group.main.id]
   db_subnet_group_name    = aws_db_subnet_group.main.name
   publicly_accessible     = false
   storage_encrypted       = true
