@@ -12,6 +12,7 @@ module "backend"{
   vpc_id                  = module.vpc.vpc_id
   bastion_nodes           = var.bastion_nodes
   prometheus_nodes        = var.prometheus_nodes
+  vault_token             = var.vault_token
 }
 
 # module "rds" {
