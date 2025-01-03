@@ -40,11 +40,12 @@ resource "aws_launch_template" "main" {
   instance_type           = var.instance_type
   vpc_security_group_ids  = [aws_security_group.main.id]
 
-  user_data = base64encode(templatefile("${path.module}/useradd.sh", {
-    component = var.component
-    env       = var.env
+  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
+    component   = var.component
+    env         = var.env
     vault_token = var.vault_token
-  } ))
+  }))
+
 }
 
 resource "aws_autoscaling_group" "main" {
