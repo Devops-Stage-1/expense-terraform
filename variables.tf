@@ -17,3 +17,4 @@ variable "kms_key_id" {}
 variable "max_size" {}
 variable "min_size" {}
 variable "desired_capacity" {}
+variable "certificate_arn" {}
