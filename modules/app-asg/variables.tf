@@ -16,4 +16,3 @@ variable "lb_port" {}
 variable "certificate_arn" {}
 variable "lb_subnets" {}
 variable "lb_app_port_sg_cidr" {}
-variable "kms_key_id" {}
