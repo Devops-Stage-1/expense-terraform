@@ -40,6 +40,15 @@ resource "aws_launch_template" "main" {
   instance_type           = var.instance_type
   vpc_security_group_ids  = [aws_security_group.main.id]
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+
+    ebs {
+        encrypted = true
+        kms_key_id = var.kms_key_id
+    }
+  }
+
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     component   = var.component
     env         = var.env

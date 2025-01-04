@@ -19,6 +19,7 @@ module "frontend"{
   lb_port                 = {http: 80, https: 443}
   lb_subnets              = module.vpc.public_subnets
   lb_type                 = "public"
+  kms_key_id              = var.kms_key_id
 }
 
 module "backend"{
@@ -39,9 +40,10 @@ module "backend"{
   vault_token             = var.vault_token
   certificate_arn         = var.certificate_arn
   lb_app_port_sg_cidr     = var.frontend_subnets
-  lb_port                 = {http: 8080}
+  lb_port                 = { http : 8080 }
   lb_subnets              = module.vpc.backend_subnets
   lb_type                 = "private"
+  kms_key_id              = var.kms_key_id
 }
 
 module "rds" {
