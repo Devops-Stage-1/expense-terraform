@@ -1,50 +1,50 @@
-# module "frontend"{
-#   depends_on = [module.backend]
-#   source                  = "./modules/app-asg"
-#   component               = "frontend"
-#   env                     = var.env
-#   instance_type           = var.instance_type
-#   max_size                = var.max_size
-#   desired_capacity        = var.desired_capacity
-#   min_size                = var.min_size
-#   subnet_ids              = module.vpc.frontend_subnets
-#   app_port                = 80
-#   server_app_port_sg_cidr = var.public_subnets
-#   vpc_id                  = module.vpc.vpc_id
-#   bastion_nodes           = var.bastion_nodes
-#   prometheus_nodes        = var.prometheus_nodes
-#   vault_token             = var.vault_token
-#   certificate_arn         = var.certificate_arn
-#   lb_app_port_sg_cidr     = ["0.0.0.0/0"]
-#   lb_port                 = {http: 80, https: 443}
-#   lb_subnets              = module.vpc.public_subnets
-#   lb_type                 = "public"
-#   kms_key_id              = var.kms_key_id
-# }
-#
-# module "backend"{
-#   depends_on = [module.rds]
-#   source                  = "./modules/app-asg"
-#   component               = "backend"
-#   env                     = var.env
-#   instance_type           = var.instance_type
-#   max_size                = var.max_size
-#   desired_capacity        = var.desired_capacity
-#   min_size                = var.min_size
-#   subnet_ids              = module.vpc.backend_subnets
-#   app_port                = 8080
-#   server_app_port_sg_cidr = var.backend_subnets
-#   vpc_id                  = module.vpc.vpc_id
-#   bastion_nodes           = var.bastion_nodes
-#   prometheus_nodes        = var.prometheus_nodes
-#   vault_token             = var.vault_token
-#   certificate_arn         = var.certificate_arn
-#   lb_app_port_sg_cidr     = var.frontend_subnets
-#   lb_port                 = {http: 8080}
-#   lb_subnets              = module.vpc.backend_subnets
-#   lb_type                 = "private"
-#   kms_key_id              = var.kms_key_id
-# }
+module "frontend"{
+  depends_on = [module.backend]
+  source                  = "./modules/app-asg"
+  component               = "frontend"
+  env                     = var.env
+  instance_type           = var.instance_type
+  max_size                = var.max_size
+  desired_capacity        = var.desired_capacity
+  min_size                = var.min_size
+  subnet_ids              = module.vpc.frontend_subnets
+  app_port                = 80
+  server_app_port_sg_cidr = var.public_subnets
+  vpc_id                  = module.vpc.vpc_id
+  bastion_nodes           = var.bastion_nodes
+  prometheus_nodes        = var.prometheus_nodes
+  vault_token             = var.vault_token
+  certificate_arn         = var.certificate_arn
+  lb_app_port_sg_cidr     = ["0.0.0.0/0"]
+  lb_port                 = {http: 80, https: 443}
+  lb_subnets              = module.vpc.public_subnets
+  lb_type                 = "public"
+  kms_key_id              = var.kms_key_id
+}
+
+module "backend"{
+  depends_on = [module.rds]
+  source                  = "./modules/app-asg"
+  component               = "backend"
+  env                     = var.env
+  instance_type           = var.instance_type
+  max_size                = var.max_size
+  desired_capacity        = var.desired_capacity
+  min_size                = var.min_size
+  subnet_ids              = module.vpc.backend_subnets
+  app_port                = 8080
+  server_app_port_sg_cidr = var.backend_subnets
+  vpc_id                  = module.vpc.vpc_id
+  bastion_nodes           = var.bastion_nodes
+  prometheus_nodes        = var.prometheus_nodes
+  vault_token             = var.vault_token
+  certificate_arn         = var.certificate_arn
+  lb_app_port_sg_cidr     = var.frontend_subnets
+  lb_port                 = {http: 8080}
+  lb_subnets              = module.vpc.backend_subnets
+  lb_type                 = "private"
+  kms_key_id              = var.kms_key_id
+}
 
 module "rds" {
   depends_on = [module.vpc]
