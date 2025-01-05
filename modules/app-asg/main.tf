@@ -52,7 +52,7 @@ resource "aws_route53_record" "lb-record" {
   name    = "${var.component}-${var.env}"
   type    = "CNAME"
   ttl     = 30
-  records = [aws_lb.main[0].dns_name]
+  records = [aws_lb.main.dns_name]
 }
 
 resource "aws_autoscaling_group" "main" {
