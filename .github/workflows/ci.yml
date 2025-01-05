@@ -1,0 +1,7 @@
+name: Continuous Integration Workflow
+on: [push]
+jobs:
+  Continuous_Integration_Workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
