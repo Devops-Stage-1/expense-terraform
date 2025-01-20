@@ -22,6 +22,13 @@ resource "aws_security_group" "main" {
     cidr_blocks      = var.prometheus_nodes
   }
 
+  ingress {
+    from_port        = 2019
+    to_port          = 2019
+    protocol         = "TCP"
+    cidr_blocks      = var.prometheus_nodes
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
