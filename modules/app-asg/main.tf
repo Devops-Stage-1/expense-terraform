@@ -12,7 +12,7 @@ resource "aws_security_group" "main" {
     from_port        = var.app_port
     to_port          = var.app_port
     protocol         = "TCP"
-    cidr_blocks      = var.server_app_port_sg_cidr
+    cidr_blocks      = concat(var.server_app_port_sg_cidr, var.prometheus_nodes)
   }
 
   ingress {
