@@ -10,7 +10,7 @@ pipelines:
     secure_variables:
       TF_VAR_vault_token: AES:KjNW8iXptaW+i8jH2rZ6yg==:Tj+j15Thnd8aioQD6Ecu6trMWY8eGltB+o96M+tF7t8=
     stages:
-      - Terraform:
+      - DEV:
           fetch_materials: true
           approval:
             type: manual
@@ -32,4 +32,25 @@ pipelines:
                     command: terraform
                     run_if: passed
 
+      - PROD:
+          fetch_materials: true
+          approval:
+            type: manual
+          jobs:
+            Terraform:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - init
+                      - -backend-config=env-prod/state.tfvars
+                    command: terraform
+                    run_if: passed
+                - exec:
+                    arguments:
+                      - destroy
+                      - -var-file=env-prod/main.tfvars
+                      - -auto-approve
+                    command: terraform
+                    run_if: passed
 
